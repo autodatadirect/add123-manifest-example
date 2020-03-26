@@ -26,10 +26,11 @@ const Input = ({ name }) => {
 }
 
 const CustomFilter = () =>
-  <Filter>
+  <Filter defaultValues={{search: 'foo', boo: 'foo'}}>
     <Input name='search' />
   </Filter>
 
+const pageSizes = [1, 2, 5, 10, 20, 50, 100]
 
 const history = createBrowserHistory()
 
@@ -37,7 +38,7 @@ const history = createBrowserHistory()
 const App = () => 
   <Router history={history}>
     <Container fluid>
-      <Manifest definition={definition} fetchRows={fetchRows} fetchCount={fetchCount} Filter={CustomFilter} />
+      <Manifest definition={definition} fetchRows={fetchRows} fetchCount={fetchCount} Filter={CustomFilter} pageSizes={pageSizes} debug />
       <div style={{marginBottom:'100px'}} />
     </Container>
   </Router>

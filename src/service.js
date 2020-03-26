@@ -54,7 +54,7 @@ const sortData = sorts => {
   if (!sort || !sort.id) return
   data.sort(sorter(sort.id))
 
-  if (!sort.isAsc) {
+  if (sort.direction === 'DESCENDING') {
     data.reverse()
   }
 }
@@ -68,8 +68,8 @@ export const compileResult = (filter, meta) => {
   }
 }
 
-const delay = 10
+const delay = 1000
 
 export default (filter = {}, meta={}) => new Promise((resolve, reject) => {
-  window.setTimeout(() => resolve(compileResult(filter, meta)), chance.integer({min: 0, max: delay}))
+  window.setTimeout(() => resolve(compileResult(filter, meta)), chance.integer({min: delay, max: delay}))
 })
