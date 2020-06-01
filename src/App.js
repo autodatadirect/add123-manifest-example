@@ -1,6 +1,6 @@
 import React from 'react'
 import './App.css'
-import { Manifest, Filter } from 'add123-manifest'
+import { Manifest, Filter, buildToArrayTransform } from 'add123-manifest'
 import definition from './definition'
 import service from './service'
 import 'add123-manifest/dist/add123-manifest.css'
@@ -26,20 +26,25 @@ const Input = ({ name }) => {
 }
 
 const CustomFilter = () =>
-  <Filter defaultValues={{search: 'foo', boo: 'foo'}}>
-    <Input name='search' />
+  <Filter defaultValues={{ date: ['foo', 'bar'], boo: 'foo' }} transform={transform}>
+    <Input name='date.0' />
+    <Input name='date.1' />
+
+    <Input name='date2.0' />
+    <Input name='date2.1' />
   </Filter>
 
 const pageSizes = [1, 2, 5, 10, 20, 50, 100]
 
 const history = createBrowserHistory()
 
+const transform = buildToArrayTransform('date', 'date2')
 
-const App = () => 
+const App = () =>
   <Router history={history}>
     <Container fluid>
       <Manifest definition={definition} fetchRows={fetchRows} fetchCount={fetchCount} Filter={CustomFilter} pageSizes={pageSizes} debug />
-      <div style={{marginBottom:'100px'}} />
+      <div style={{ marginBottom: '100px' }} />
     </Container>
   </Router>
 
